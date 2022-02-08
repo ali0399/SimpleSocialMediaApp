@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Style.PostCard" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Style.SerachView" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:queryBackground">@color/white</item>
+    </style>
+</resources>
