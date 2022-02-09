@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.homeShimmer.startShimmerAnimation()
+
         val myPref = getSharedPreferences("MyPref", MODE_PRIVATE)
 
         val ssmaService = RetrofitHelper.getInstance().create(SsmaApi::class.java)
@@ -52,6 +54,10 @@ class MainActivity : AppCompatActivity() {
 
         ssmaViewModel.userDetails.observe(this, Observer {
 //            Log.d(TAG, "onCreate: name: ${it.Name}, Friends: ${it.FriendList.toString()}")
+            binding.homeShimmer.stopShimmerAnimation()
+            binding.homeShimmer.visibility = View.GONE
+            binding.homeContainer.visibility = View.VISIBLE
+
             friendRecyclerAdapter.setFriendList(it.FriendList)
             friendRecyclerAdapter.notifyDataSetChanged()
             binding.nameTv.text = it.Name + "!"

@@ -2,10 +2,12 @@ package com.example.smartkeeratest
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.smartkeeratest.api.RetrofitHelper
 import com.example.smartkeeratest.api.SsmaApi
 import com.example.smartkeeratest.databinding.ActivityProfileBinding
@@ -25,6 +27,8 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.profileShimmer.startShimmerAnimation()
+
         val ssmaService = RetrofitHelper.getInstance().create(SsmaApi::class.java)
         val repository = SsmaRepository(ssmaService)
 
@@ -42,6 +46,22 @@ class ProfileActivity : AppCompatActivity() {
 
         ssmaViewModel.profileDetails.observe(this, Observer {
             with(binding) {
+                profileShimmer.stopShimmerAnimation()
+                profileShimmer.visibility = View.GONE
+                profileDetailsContainer.visibility = View.VISIBLE
+                photoRv.visibility = View.VISIBLE
+
+                if (it.ProfileImage == null) {
+                    binding.profileImgIv.visibility = View.GONE
+                    binding.profileImgTv.visibility = View.VISIBLE
+                    binding.profileImgTv.text = it.Name[0].toString()
+                } else {
+                    binding.profileImgIv.visibility = View.VISIBLE
+                    binding.profileImgTv.visibility = View.GONE
+                    Glide.with(this@ProfileActivity).load(it.ProfileImage)
+                        .into(binding.profileImgIv)
+                }
+
                 profileNameTv.text = it.Name
                 profileDescTv.text = it.Description
                 profileLocTv.text = it.Location

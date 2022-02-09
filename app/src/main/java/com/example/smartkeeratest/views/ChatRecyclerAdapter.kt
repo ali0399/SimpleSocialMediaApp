@@ -61,7 +61,7 @@ class ChatRecyclerAdapter(private val context: Context) :
                     chatList = chatListTemp
                 } else {
                     val resultList = ArrayList<FriendxChat>()
-                    for (row in chatList!!) {
+                    for (row in chatListTemp!!) {
                         if (row.Name.lowercase(Locale.ROOT)
                                 .contains(charSearch.lowercase(Locale.ROOT))
                         ) {

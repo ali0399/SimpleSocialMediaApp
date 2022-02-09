@@ -6,6 +6,7 @@
     android:layout_margin="8dp"
     android:minWidth="50dp"
     android:minHeight="50dp"
+    app:cardElevation="5dp"
     app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

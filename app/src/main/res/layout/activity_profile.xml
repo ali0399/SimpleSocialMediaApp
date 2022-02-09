@@ -11,7 +11,9 @@
         android:id="@+id/profileDetailsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,6 +50,7 @@
 
             <TextView
                 android:id="@+id/textView1"
+                style="@style/Style.DarkText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -57,19 +60,55 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileBackBtn" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImg2Iv"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_circle_person_24"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profileImgContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView1" />
+                app:layout_constraintTop_toBottomOf="@id/textView1">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profileImgIv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_circle_person_24"
+                    app:civ_border_color="@color/pink"
+                    app:civ_border_width="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.85"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/profileImgTv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/round_bg"
+                    android:gravity="center"
+                    android:text="US"
+                    android:textSize="50sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--            <de.hdodenhof.circleimageview.CircleImageView-->
+            <!--                android:id="@+id/profileImg2Iv"-->
+            <!--                android:layout_width="80dp"-->
+            <!--                android:layout_height="80dp"-->
+            <!--                android:layout_margin="16dp"-->
+            <!--                android:scaleType="centerCrop"-->
+            <!--                android:src="@drawable/ic_circle_person_24"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/textView1" />-->
 
             <TextView
                 android:id="@+id/profileNameTv"
+                style="@style/Style.DarkText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -78,10 +117,11 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileImg2Iv" />
+                app:layout_constraintTop_toBottomOf="@+id/profileImgContainer" />
 
             <TextView
                 android:id="@+id/profileDescTv"
+                style="@style/Style.LightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -93,6 +133,7 @@
 
             <TextView
                 android:id="@+id/profileLocTv"
+                style="@style/Style.LightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -115,6 +156,7 @@
                 app:layout_constraintTop_toTopOf="@+id/followerCountContainer">
 
                 <TextView
+                    style="@style/Style.LightText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -122,9 +164,11 @@
 
                 <TextView
                     android:id="@+id/photoCountTv"
+                    style="@style/Style.DarkText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="000"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -141,6 +185,7 @@
                 app:layout_constraintTop_toBottomOf="@id/profileLocTv">
 
                 <TextView
+                    style="@style/Style.LightText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -148,9 +193,11 @@
 
                 <TextView
                     android:id="@+id/followerCountTv"
+                    style="@style/Style.DarkText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="000"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -167,6 +214,7 @@
                 app:layout_constraintTop_toTopOf="@+id/followerCountContainer">
 
                 <TextView
+                    style="@style/Style.LightText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -174,9 +222,11 @@
 
                 <TextView
                     android:id="@+id/follows_count_tv"
+                    style="@style/Style.DarkText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="000"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -187,12 +237,28 @@
         android:id="@+id/photoRv"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingTop="16dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileDetailsContainer"
         tools:listitem="@layout/photo_item" />
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/profileShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/shimmer_layout_profile" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

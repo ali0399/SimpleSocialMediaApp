@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="5dp"
     android:layout_margin="5dp"
     app:cardCornerRadius="20dp">
 
@@ -30,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,22 +55,26 @@
 
             <TextView
                 android:id="@+id/postNameTv"
+                style="@style/Style.DarkText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="UserName"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/postTimeTv"
                 app:layout_constraintStart_toEndOf="@+id/postProfileImg"
                 app:layout_constraintTop_toTopOf="@+id/postProfileImg"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/postTimeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="TextView"
+                style="@style/Style.LightText"
+                android:layout_marginTop="2dp"
+                android:text="Post Time"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/postProfileImg"
                 app:layout_constraintStart_toStartOf="@id/postNameTv"
                 app:layout_constraintTop_toBottomOf="@+id/postNameTv"

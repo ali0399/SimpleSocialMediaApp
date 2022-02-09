@@ -1,6 +1,8 @@
 package com.example.smartkeeratest
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -26,6 +28,8 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.chatsShimmer.startShimmerAnimation()
+
         var chatList = ArrayList<FriendxChat>()
         val ssmaService = RetrofitHelper.getInstance().create(SsmaApi::class.java)
         val repository = SsmaRepository(ssmaService)
@@ -39,11 +43,12 @@ class ChatActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.chatRv.adapter = chatRecyclerAdapter
 
-        binding.chatSearchView.isClickable = false
 
         ssmaViewModel.conversationDetails.observe(this, Observer {
             with(chatRecyclerAdapter) {
-                binding.chatSearchView.isClickable = true
+                binding.chatsShimmer.stopShimmerAnimation()
+                binding.chatsShimmer.visibility = View.GONE
+                binding.chatsContainer.visibility = View.VISIBLE
                 chatList.addAll(it.FriendList)
                 setChats(it.FriendList)
                 notifyDataSetChanged()
@@ -56,6 +61,7 @@ class ChatActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                Log.d("ChatActivity", "onQueryTextChange: newText: $newText")
                 chatRecyclerAdapter.filter.filter(newText)
                 return false
             }

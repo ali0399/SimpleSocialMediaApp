@@ -5,8 +5,23 @@
         <item name="android:background">@color/white</item>
     </style>
 
-    <style name="Style.SerachView" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:queryBackground">@color/white</item>
+    <style name="Style.Shimmer" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@color/grey</item>
     </style>
+
+    <style name="Style.LightText" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="Style.DarkText" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+
+    <style name="Style.SerachView" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@drawable/search_view_bg</item>
+        <item name="android:queryBackground">@android:color/transparent</item>
+    </style>
+
+
 </resources>
