@@ -20,12 +20,12 @@ class SsmaViewModel(private val repository: SsmaRepository, context: Context) : 
 
     init {
         val myPref = context.getSharedPreferences("MyPref", AppCompatActivity.MODE_PRIVATE)
-        val USER_ID = myPref.getInt(Constants.USER_ID, 1)
+        val userId = myPref.getInt(Constants.USER_ID, 1)
 
         viewModelScope.launch(Dispatchers.IO) {
             repository.getHomePageDetails(TOKEN, APP_VERSION)
             repository.getPostList(TOKEN, APP_VERSION)
-            repository.getProfileDetails(TOKEN, APP_VERSION, USER_ID)
+            repository.getProfileDetails(TOKEN, APP_VERSION, userId)
             repository.getConversations(TOKEN, APP_VERSION)
         }
     }

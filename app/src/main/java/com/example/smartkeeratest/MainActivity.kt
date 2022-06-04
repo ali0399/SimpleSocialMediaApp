@@ -6,45 +6,52 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.example.smartkeeratest.api.RetrofitHelper
-import com.example.smartkeeratest.api.SsmaApi
 import com.example.smartkeeratest.databinding.ActivityMainBinding
-import com.example.smartkeeratest.repositories.SsmaRepository
+import com.example.smartkeeratest.deps.AppContainer
+import com.example.smartkeeratest.deps.MainContainer
 import com.example.smartkeeratest.util.Constants
 import com.example.smartkeeratest.viewModels.SsmaViewModel
-import com.example.smartkeeratest.viewModels.SsmaViewModelFactory
 import com.example.smartkeeratest.views.FriendRecyclerViewAdapter
 import com.example.smartkeeratest.views.PostListAdapter
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
-    lateinit var ssmaViewModel: SsmaViewModel
+    var ssmaViewModel: SsmaViewModel? = null
     lateinit var friendRecyclerAdapter: FriendRecyclerViewAdapter
     lateinit var postListAdapter: PostListAdapter
     private lateinit var binding: ActivityMainBinding
 
+    lateinit var appContainer: AppContainer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        appContainer = (application as MyApp).appContainer
+        appContainer.mainContainer = MainContainer(appContainer.repository, appContainer.context)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
 
         binding.homeShimmer.startShimmerAnimation()
 
         val myPref = getSharedPreferences("MyPref", MODE_PRIVATE)
 
-        val ssmaService = RetrofitHelper.getInstance().create(SsmaApi::class.java)
-        val repository = SsmaRepository(ssmaService)
+//        val ssmaService = RetrofitHelper.getInstance().create(SsmaApi::class.java)
+//        val repository = SsmaRepository(ssmaService)
+//
+//        //initializing View model
+//        ssmaViewModel =
+//            ViewModelProvider(this,
+//                SsmaViewModelFactory(repository, this)).get(SsmaViewModel::class.java)
 
-        //initializing View model
-        ssmaViewModel =
-            ViewModelProvider(this,
-                SsmaViewModelFactory(repository, this)).get(SsmaViewModel::class.java)
+        ssmaViewModel = appContainer.mainContainer?.ssmaViewModelFactory1?.create()
+
 
         //configuring recycler adapter
         binding.friendRecyclerView.layoutManager =
@@ -52,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         friendRecyclerAdapter = FriendRecyclerViewAdapter(this)
         binding.friendRecyclerView.adapter = friendRecyclerAdapter
 
-        ssmaViewModel.userDetails.observe(this, Observer {
+        ssmaViewModel?.userDetails?.observe(this, Observer {
 //            Log.d(TAG, "onCreate: name: ${it.Name}, Friends: ${it.FriendList.toString()}")
             binding.homeShimmer.stopShimmerAnimation()
             binding.homeShimmer.visibility = View.GONE
@@ -78,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         val postListPager = findViewById<ViewPager2>(R.id.postPager)
         postListAdapter = PostListAdapter(this)
         postListPager.adapter = postListAdapter
-        ssmaViewModel.postList.observe(this, Observer {
+        ssmaViewModel?.postList?.observe(this, Observer {
             Log.d(TAG, "onCreate: observing postList: $it")
             postListAdapter.setPostList(it.PostList)
             postListAdapter.notifyDataSetChanged()
@@ -88,5 +95,10 @@ class MainActivity : AppCompatActivity() {
         binding.profileImgContainer.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        appContainer.mainContainer = null
     }
 }
