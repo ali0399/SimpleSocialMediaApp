@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,13 +16,12 @@ import com.example.smartkeeratest.util.Constants
 import com.example.smartkeeratest.viewModels.SsmaViewModel
 import com.example.smartkeeratest.views.FriendRecyclerViewAdapter
 import com.example.smartkeeratest.views.PostListAdapter
-import dagger.android.AndroidInjection
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
-    @Inject
-    lateinit var ssmaViewModel: SsmaViewModel
+    private val ssmaViewModel: SsmaViewModel by viewModels()
     lateinit var friendRecyclerAdapter: FriendRecyclerViewAdapter
     lateinit var postListAdapter: PostListAdapter
     private lateinit var binding: ActivityMainBinding
@@ -33,8 +33,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        AndroidInjection.inject(this)
 
         binding.homeShimmer.startShimmerAnimation()
 

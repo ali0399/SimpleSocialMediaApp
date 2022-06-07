@@ -13,15 +13,17 @@ import com.example.smartkeeratest.repositories.SsmaRepository
 import com.example.smartkeeratest.util.Constants
 import com.example.smartkeeratest.util.Constants.APP_VERSION
 import com.example.smartkeeratest.util.Constants.TOKEN
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SsmaViewModel @Inject constructor(
     private val repository: SsmaRepository,
-    private val context: Context,
+    @ApplicationContext context: Context,
 ) : ViewModel() {
-
 
     init {
         val myPref = context?.getSharedPreferences("MyPref", AppCompatActivity.MODE_PRIVATE)
