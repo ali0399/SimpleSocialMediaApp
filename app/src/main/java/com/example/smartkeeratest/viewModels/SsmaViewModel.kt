@@ -15,11 +15,16 @@ import com.example.smartkeeratest.util.Constants.APP_VERSION
 import com.example.smartkeeratest.util.Constants.TOKEN
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SsmaViewModel(private val repository: SsmaRepository, context: Context) : ViewModel() {
+class SsmaViewModel @Inject constructor(
+    private val repository: SsmaRepository,
+    private val context: Context,
+) : ViewModel() {
+
 
     init {
-        val myPref = context.getSharedPreferences("MyPref", AppCompatActivity.MODE_PRIVATE)
+        val myPref = context?.getSharedPreferences("MyPref", AppCompatActivity.MODE_PRIVATE)
         val userId = myPref.getInt(Constants.USER_ID, 1)
 
         viewModelScope.launch(Dispatchers.IO) {

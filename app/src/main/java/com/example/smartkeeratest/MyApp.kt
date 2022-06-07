@@ -1,15 +1,29 @@
 package com.example.smartkeeratest
 
 import android.app.Application
-import com.example.smartkeeratest.deps.AppContainer
+import com.example.smartkeeratest.deps.AppModule
+import com.example.smartkeeratest.deps.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
-class MyApp : Application() {
+class MyApp : Application(), HasAndroidInjector {
 
-    lateinit var appContainer: AppContainer
+    @Inject
+    lateinit var mInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
-        appContainer = AppContainer(this)
+        DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
+            .inject(this)
     }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return mInjector
+    }
+
 
 }

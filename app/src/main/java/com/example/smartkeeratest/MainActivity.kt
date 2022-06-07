@@ -11,32 +11,30 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.smartkeeratest.databinding.ActivityMainBinding
-import com.example.smartkeeratest.deps.AppContainer
-import com.example.smartkeeratest.deps.MainContainer
 import com.example.smartkeeratest.util.Constants
 import com.example.smartkeeratest.viewModels.SsmaViewModel
 import com.example.smartkeeratest.views.FriendRecyclerViewAdapter
 import com.example.smartkeeratest.views.PostListAdapter
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
-    var ssmaViewModel: SsmaViewModel? = null
+    @Inject
+    lateinit var ssmaViewModel: SsmaViewModel
     lateinit var friendRecyclerAdapter: FriendRecyclerViewAdapter
     lateinit var postListAdapter: PostListAdapter
     private lateinit var binding: ActivityMainBinding
 
-    lateinit var appContainer: AppContainer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        appContainer = (application as MyApp).appContainer
-        appContainer.mainContainer = MainContainer(appContainer.repository, appContainer.context)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-
+        AndroidInjection.inject(this)
 
         binding.homeShimmer.startShimmerAnimation()
 
@@ -49,8 +47,6 @@ class MainActivity : AppCompatActivity() {
 //        ssmaViewModel =
 //            ViewModelProvider(this,
 //                SsmaViewModelFactory(repository, this)).get(SsmaViewModel::class.java)
-
-        ssmaViewModel = appContainer.mainContainer?.ssmaViewModelFactory1?.create()
 
 
         //configuring recycler adapter
@@ -97,8 +93,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        appContainer.mainContainer = null
-    }
 }

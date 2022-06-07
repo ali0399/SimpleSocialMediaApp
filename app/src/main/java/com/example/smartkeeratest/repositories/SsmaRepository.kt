@@ -7,8 +7,9 @@ import com.example.smartkeeratest.models.ConversationDetails
 import com.example.smartkeeratest.models.HomePageDetails
 import com.example.smartkeeratest.models.PostsList
 import com.example.smartkeeratest.models.ProfileDetails
+import javax.inject.Inject
 
-class SsmaRepository(private val ssmaApi: SsmaApi) {
+class SsmaRepository @Inject constructor(private val ssmaApi: SsmaApi) {
 
     private val mHomePageDetails = MutableLiveData<HomePageDetails>()
     val homePageDetails: LiveData<HomePageDetails>
